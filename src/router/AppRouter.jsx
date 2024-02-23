@@ -1,0 +1,47 @@
+import {  Route, Routes } from "react-router-dom"
+
+import { HeroesRoutes } from "../heroes"
+import { LoginPage } from "../auth"
+import { PrivateRoute } from "./PrivateRoute"
+import { PublicRoute } from "./PublicRoute"
+
+
+
+export const AppRouter = () => {
+  return (
+    <>
+    
+    <Routes>
+
+        <Route path= "login/*" element={
+          
+          <PublicRoute>
+            {/* PRIMERA FORMA */}
+            {/* <LoginPage/> */}
+              <Routes>
+                {/* SEGUNDA FORMA */}
+                <Route path="/*" element={<LoginPage/>}/>
+              </Routes>
+          </PublicRoute>
+
+        }
+        
+        />
+
+        <Route path="/*" element={
+          <PrivateRoute>
+                <HeroesRoutes/>
+          </PrivateRoute>
+          
+        }/>
+
+
+        {/* <Route path="login" element={<LoginPage/>}/> */}
+
+        {/* Se comunica con el componente que tiene otras rutas. '/*' Lee todo el componente */}
+        {/* <Route path="/*" element={<HeroesRoutes/>}/> */}
+      
+    </Routes>
+    </>
+  )
+}
